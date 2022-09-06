@@ -31,15 +31,15 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/one" replace />, index: true },
         { path: 'one', element: <PageOne /> },
-        { path: 'two', element: <PageTwo /> },
-        { path: 'three', element: <PageThree /> },
+        { path: 'two', element: <PageOne />},
+        { path: 'three', element: <PageOne /> },
         {
           path: 'user',
           children: [
             { element: <Navigate to="/dashboard/user/four" replace />, index: true },
-            { path: 'four', element: <PageFour /> },
-            { path: 'five', element: <PageFive /> },
-            { path: 'six', element: <PageSix /> },
+            { path: 'four', element: <PageOne /> },
+            { path: 'five', element: <PageOne /> },
+            { path: 'six', element: <PageOne />},
           ],
         },
       ],
@@ -59,9 +59,4 @@ export default function Router() {
 
 // Dashboard
 const PageOne = Loadable(lazy(() => import('../pages/PageOne')));
-const PageTwo = Loadable(lazy(() => import('../pages/PageTwo')));
-const PageThree = Loadable(lazy(() => import('../pages/PageThree')));
-const PageFour = Loadable(lazy(() => import('../pages/PageFour')));
-const PageFive = Loadable(lazy(() => import('../pages/PageFive')));
-const PageSix = Loadable(lazy(() => import('../pages/PageSix')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
