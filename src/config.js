@@ -28,9 +28,9 @@ export const ICON = {
 // ----------------------------------------------------------------------
 
 export const defaultSettings = {
-  themeMode: 'light',
+  themeMode: 'dark',
   themeDirection: 'ltr',
-  themeColorPresets: 'purple',
+  themeColorPresets: 'default',
   themeLayout: 'horizontal',
   themeStretch: false,
 };

@@ -21,27 +21,14 @@ const Loadable = (Component) => (props) => {
 
 export default function Router() {
   return useRoutes([
+  
     {
       path: '/',
-      element: <Navigate to="/dashboard/one" replace />,
-    },
-    {
-      path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/one" replace />, index: true },
-        { path: 'one', element: <PageOne /> },
+        { path: 'dashboard', element: <PageOne /> },
         { path: 'two', element: <PageOne />},
         { path: 'three', element: <PageOne /> },
-        {
-          path: 'user',
-          children: [
-            { element: <Navigate to="/dashboard/user/four" replace />, index: true },
-            { path: 'four', element: <PageOne /> },
-            { path: 'five', element: <PageOne /> },
-            { path: 'six', element: <PageOne />},
-          ],
-        },
       ],
     },
     {
@@ -58,5 +45,5 @@ export default function Router() {
 
 
 // Dashboard
-const PageOne = Loadable(lazy(() => import('../pages/PageOne')));
+const PageOne = Loadable(lazy(() => import('../pages/Dashboard')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
