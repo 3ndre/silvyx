@@ -35,6 +35,7 @@ export default function Router() {
       path: '*',
       element: <LogoOnlyLayout />,
       children: [
+        { path: 'connect', element: <Connect/> }, 
         { path: '404', element: <NotFound /> },
         { path: '*', element: <Navigate to="/404" replace /> },
       ],
@@ -46,4 +47,5 @@ export default function Router() {
 
 // Dashboard
 const PageOne = Loadable(lazy(() => import('../pages/Dashboard')));
+const Connect = Loadable(lazy(() => import('../pages/Connect')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
