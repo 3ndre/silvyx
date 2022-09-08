@@ -48,10 +48,10 @@ export default function NavbarAccount({ isCollapse }) {
           }}
         >
           <Typography variant="subtitle2" noWrap>
-            Rayan Moran
+            Testname
           </Typography>
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
-            user
+            Balance: $100
           </Typography>
         </Box>
       </RootStyle>
