@@ -9,7 +9,7 @@ import Page from '../components/Page';
 
 // ----------------------------------------------------------------------
 
-export default function Dashboard() {
+export default function Transaction() {
   const { themeStretch } = useSettings();
 
   const { isConnected } = useAccount()
@@ -20,11 +20,13 @@ export default function Dashboard() {
   }
 
   return (
-    <Page title="Dashboard">
+    <Page title="Transaction">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h3" component="h1" paragraph>
-          Dashboard
+          Transaction
         </Typography>
+
+        
         
       </Container>
     </Page>

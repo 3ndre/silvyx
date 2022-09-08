@@ -6,6 +6,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 
+
 // ----------------------------------------------------------------------
 
 const Loadable = (Component) => (props) => {
@@ -22,15 +23,17 @@ const Loadable = (Component) => (props) => {
 export default function Router() {
   return useRoutes([
   
+    { path: '/', element: <Home /> },
+
     {
       path: '/',
       element: <DashboardLayout />,
       children: [
-        { path: 'dashboard', element: <PageOne /> },
-        { path: 'two', element: <PageOne />},
-        { path: 'three', element: <PageOne /> },
+        { path: 'dashboard', element: <Dashboard /> },
+        { path: 'transaction', element: <Transaction /> },
       ],
     },
+    
     {
       path: '*',
       element: <LogoOnlyLayout />,
@@ -46,6 +49,8 @@ export default function Router() {
 
 
 // Dashboard
-const PageOne = Loadable(lazy(() => import('../pages/Dashboard')));
+const Dashboard = Loadable(lazy(() => import('../pages/Dashboard')));
+const Home = Loadable(lazy(() => import('../pages/Home')));
+const Transaction = Loadable(lazy(() => import('../pages/Transaction')));
 const Connect = Loadable(lazy(() => import('../pages/Connect')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));

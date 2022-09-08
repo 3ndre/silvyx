@@ -19,6 +19,7 @@ const sidebarConfig = [
     subheader: '',
     items: [
       { title: 'Dashboard', path: '/dashboard', icon: ICONS.dashboard },
+      { title: 'Transaction', path: '/transaction', icon: ICONS.analytics },
     ],
   },
 
