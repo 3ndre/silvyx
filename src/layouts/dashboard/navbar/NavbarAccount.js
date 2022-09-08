@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import { Box, Link, Typography, Avatar } from '@mui/material';
 
+
 // ----------------------------------------------------------------------
+import { useAccount, useBalance } from 'wagmi'
 
 const RootStyle = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -23,6 +25,18 @@ NavbarAccount.propTypes = {
 };
 
 export default function NavbarAccount({ isCollapse }) {
+
+  const { address } = useAccount()
+
+  const { data, isError, isLoading } = useBalance({
+    addressOrName: address,
+  })
+
+ 
+  if (isError) return <div>Error fetching balance!</div>
+
+
+
   return (
     <Link underline="none" color="inherit">
       <RootStyle
@@ -32,7 +46,10 @@ export default function NavbarAccount({ isCollapse }) {
           }),
         }}
       >
-        <Avatar src="" alt="Rayan Moran" />
+       
+      
+      <Avatar src="/icons/matic.svg" alt="Matic token" />
+      
 
         <Box
           sx={{
@@ -48,10 +65,14 @@ export default function NavbarAccount({ isCollapse }) {
           }}
         >
           <Typography variant="subtitle2" noWrap>
-            Testname
+
+          {isLoading ? 'Loading...' :
+           <>{(Math.round(data?.formatted * 100) / 100).toFixed(2)} {data?.symbol}</> 
+          }
+          
           </Typography>
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
-            Balance: $100
+            Wallet balance
           </Typography>
         </Box>
       </RootStyle>

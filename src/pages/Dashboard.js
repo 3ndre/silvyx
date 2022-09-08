@@ -15,6 +15,7 @@ export default function Dashboard() {
   const { isConnected } = useAccount()
 
 
+
   if (!isConnected) {
     return <Navigate to="/connect" />;
   }
@@ -25,7 +26,7 @@ export default function Dashboard() {
         <Typography variant="h3" component="h1" paragraph>
           Dashboard
         </Typography>
-        
+
       </Container>
     </Page>
   );
