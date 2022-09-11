@@ -13,6 +13,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 
 // components
 import Page from '../components/Page';
+import Authorize from './authentication/Authorize';
 
 
 
@@ -36,10 +37,14 @@ const Connect = () => {
 
 
 
-  if (isConnected) {
+  if (isConnected && localStorage.getItem('access_token') !== null) {
     return <Navigate to="/dashboard" />;
   }
 
+  
+  // if (isConnected) {
+  //   return <Navigate to="/dashboard" />;
+  // }
   
 
   return (
@@ -48,6 +53,9 @@ const Connect = () => {
         <LogoOnlyLayout />
 
         <Container>
+
+        {isConnected && localStorage.getItem('access_token') === null ? <Authorize/> : 
+
           <Box sx={{ maxWidth: 480, mx: 'auto', textAlign: 'center' }}>
 
             
@@ -88,7 +96,7 @@ const Connect = () => {
       {error && <div>{error.message}</div>}
   
            
-          </Box>
+          </Box>}
         </Container>
       </RootStyle>
     </Page>

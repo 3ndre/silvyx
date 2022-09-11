@@ -7,7 +7,7 @@ import useSettings from '../hooks/useSettings';
 // components
 import Page from '../components/Page';
 
-import SwitchNetwork from './SwitchNetwork';
+import SwitchNetwork from './authentication/SwitchNetwork';
 
 // ----------------------------------------------------------------------
 

@@ -19,7 +19,9 @@ const sidebarConfig = [
     subheader: '',
     items: [
       { title: 'Dashboard', path: '/dashboard', icon: ICONS.dashboard },
+      { title: 'Wallet', path: '/wallet', icon: ICONS.dashboard },
       { title: 'Transaction', path: '/transaction', icon: ICONS.analytics },
+      { title: 'Teller', path: '/teller', icon: ICONS.analytics },
     ],
   },
 
