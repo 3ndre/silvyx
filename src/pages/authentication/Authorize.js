@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAccount, useDisconnect } from 'wagmi'
 import { Box, Typography, Button} from '@mui/material';
+import axios from 'axios'
 
 export default function Authorize() {
   
 
   const { address } = useAccount();
-
+  const navigate = useNavigate()
 
   const { disconnect } = useDisconnect()
 
@@ -45,16 +47,52 @@ export default function Authorize() {
     res = await fetch(`http://localhost:5000/api/auth/verify?signature=${signature}`, opts)
     resBody = await res.json();
 
-    //local storage remove 24hrs
-    var now = new Date().getTime();
-    const item = {
-      token: resBody.token,
-      expiry: now,
-    }
-    localStorage.setItem('access_token', JSON.stringify(item));
 
-    window.location.reload();
+    //Create user
+
+    var postData = {
+      wallet: address,
+      firstname: null,
+      lastname: null,
+      location: null,
+    };
+    
+    let axiosConfig = {
+      headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          "Access-Control-Allow-Origin": "*",
+      }
+    };
+    
+    if(address !== null) {
+    axios.post('http://localhost:5000/api/users', postData, axiosConfig)
+    .then((res) => {
+       //local storage remove 24hrs
+        var now = new Date().getTime();
+        const item = {
+          token: resBody.token,
+          expiry: now,
+        }
+        localStorage.setItem('access_token', JSON.stringify(item));
+      navigate('/dashboard')
+      // window.location.reload()
+    })
+    .catch((err) => {
+      //local storage remove 24hrs
+      var now = new Date().getTime();
+      const item = {
+        token: resBody.token,
+        expiry: now,
+      }
+      localStorage.setItem('access_token', JSON.stringify(item));
+      navigate('/dashboard')
+      // window.location.reload()
+    })}
+    
 }
+
+
+
 
 
 
