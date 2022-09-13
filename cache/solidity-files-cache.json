@@ -1,15 +1,15 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\suvek\\Desktop\\silvyx\\silvyx\\contracts\\Token.sol": {
-      "lastModificationDate": 1662198722038,
-      "contentHash": "d32614fd4c0d1189b34e13ca26580e73",
-      "sourceName": "contracts/Token.sol",
+    "C:\\Users\\suvek\\Desktop\\silvyx\\silvyx\\contracts\\Silvyx.sol": {
+      "lastModificationDate": 1662976863723,
+      "contentHash": "26915773be1c16a202b06cc608908ab8",
+      "sourceName": "contracts/Silvyx.sol",
       "solcConfig": {
-        "version": "0.8.9",
+        "version": "0.8.4",
         "settings": {
           "optimizer": {
-            "enabled": false,
+            "enabled": true,
             "runs": 200
           },
           "outputSelection": {
@@ -30,10 +30,10 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.9"
+        "^0.8.4"
       ],
       "artifacts": [
-        "Token"
+        "Silvyx"
       ]
     }
   }
