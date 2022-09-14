@@ -26,7 +26,6 @@ import MuiAlert from '@mui/material/Alert';
 
 //---------------------------------------------------------
 
-import Iconify from '../../components/Iconify';
 
 
 
@@ -185,8 +184,8 @@ const SendToken = () => {
 
     
 
-      <Button variant="contained" startIcon={<Iconify icon="cryptocurrency:matic" />} onClick={handleClickOpen}>
-              Send Token
+      <Button variant="contained" onClick={handleClickOpen}>
+              Send
             </Button>
     </>
   );

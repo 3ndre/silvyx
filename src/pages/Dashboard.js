@@ -1,13 +1,15 @@
 import { useAccount, useNetwork } from 'wagmi';
 import { Navigate } from 'react-router-dom';
 // @mui
-import { Container, Typography } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 // hooks
 import useSettings from '../hooks/useSettings';
-// components
+// components 
 import Page from '../components/Page';
 
 import SwitchNetwork from './authentication/SwitchNetwork';
+import SendRecieve from '../components/sections/SendRecieve';
+import Balance from '../components/sections/Balance';
 
 // ----------------------------------------------------------------------
 
@@ -29,9 +31,17 @@ export default function Dashboard() {
       {chain.id !== 80001 ? <SwitchNetwork/> : null}
 
 
-        <Typography variant="h3" component="h1" paragraph>
-          Dashboard
-        </Typography>
+      <Grid container spacing={3}>
+
+          <Grid item xs={12} md={8}>
+            <SendRecieve />
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Balance />
+          </Grid>
+          
+      </Grid>
 
       </Container>
     </Page>
