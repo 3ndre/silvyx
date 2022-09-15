@@ -4,7 +4,7 @@ import { Typography, Card, CardContent } from '@mui/material';
 //
 import { WalletIllustration } from '../../assets';
 import SendToken from '../../pages/dashboard/SendToken';
-import RecieveToken from '../../pages/dashboard/RecieveToken';
+import ReceiveToken from '../../pages/dashboard/ReceiveToken';
 import WithdrawToken from '../../pages/dashboard/WithdrawToken';
 
 // ----------------------------------------------------------------------
@@ -44,7 +44,7 @@ export default function SendRecieve() {
         </Typography>
         
         
-        <span style={{marginRight: '5px'}}><RecieveToken/></span>
+        <span style={{marginRight: '5px'}}><ReceiveToken/></span>
         <span style={{marginRight: '5px'}}><SendToken/></span>
         <span><WithdrawToken/></span>
       </CardContent>

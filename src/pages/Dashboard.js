@@ -8,7 +8,7 @@ import useSettings from '../hooks/useSettings';
 import Page from '../components/Page';
 
 import SwitchNetwork from './authentication/SwitchNetwork';
-import SendRecieve from '../components/sections/SendRecieve';
+import SendReceive from '../components/sections/SendReceive';
 import Balance from '../components/sections/Balance';
 
 // ----------------------------------------------------------------------
@@ -34,7 +34,7 @@ export default function Dashboard() {
       <Grid container spacing={3}>
 
           <Grid item xs={12} md={8}>
-            <SendRecieve />
+            <SendReceive />
           </Grid>
 
           <Grid item xs={12} md={4}>

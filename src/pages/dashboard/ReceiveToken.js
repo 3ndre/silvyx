@@ -3,6 +3,8 @@ import {
   useAccount,
 } from 'wagmi'
 
+import QRCode from "react-qr-code";
+
 //---------------Mui Dialog -----------------
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -12,7 +14,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import {Stack} from "@mui/material";
-
+import Tooltip from '@mui/material/Tooltip';
 //-------------------------------------------
 
 
@@ -20,12 +22,13 @@ import {Stack} from "@mui/material";
 
 
 
-const RecieveToken = () => {
+const ReceiveToken = () => {
 
   
 
 
     const [open, setOpen] = useState(false);
+    const [copy, setCopy] = useState("Copy");
   
 
 
@@ -42,6 +45,11 @@ const RecieveToken = () => {
   };
 
 
+  const clipboard = () => {
+    navigator.clipboard.writeText(address)
+    setCopy("Copied!")
+    setInterval(() => setCopy("Copy"), 2500)
+  }
 
 
 
@@ -58,7 +66,7 @@ const RecieveToken = () => {
       >
         
          <DialogTitle id="alert-dialog-title" >
-          {"My address"}
+          {"Receive"}
         </DialogTitle>
 
         <DialogContent>
@@ -67,8 +75,16 @@ const RecieveToken = () => {
         <Stack sx={{ p: 2 }}>
 
 
-    <h5>{address}</h5>
-      
+    
+
+    
+    <QRCode
+    
+    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+    value={address}
+    viewBox={`0 0 256 256`}
+    />
+
      
     </Stack>
 
@@ -81,10 +97,11 @@ const RecieveToken = () => {
           Cancel
         </Button>
 
-        <Button  variant="contained" autoFocus>
-           Copy
+        <Tooltip title={`${address}`} placement="top">
+        <Button variant="contained" disabled={copy === 'Copied!' ? true : false} autoFocus onClick={clipboard}>
+           {copy}
           </Button>
-
+        </Tooltip>
           </>
          
 
@@ -96,10 +113,10 @@ const RecieveToken = () => {
     
 
       <Button variant="contained" onClick={handleClickOpen}>
-              Recieve
+              Receive
             </Button>
     </>
   );
 };
 
-export default RecieveToken;
+export default ReceiveToken;
