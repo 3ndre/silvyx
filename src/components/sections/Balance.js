@@ -1,4 +1,5 @@
 import merge from 'lodash/merge';
+import { useState, useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 // @mui
 import { styled } from '@mui/material/styles';
@@ -13,6 +14,7 @@ import BaseOptionChart from '../../components/chart/BaseOptionChart';
 
 import { useAccount, useBalance } from 'wagmi'
 
+
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -25,19 +27,37 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = "18,765";
-const CHART_DATA = [{ data: [111, 136, 76, 108, 74, 54, 57, 84] }];
 
 export default function Balance() {
 
+
+  
+
+  
   const { address } = useAccount()
 
   const { data, isError, isLoading } = useBalance({
     addressOrName: address,
   })
 
+  const [matic, setMatic] = useState(null)
+
  
-  if (isError) return <div>Error!</div>
+const CHART_DATA = [{ data: [111, 136, 76, 108, 74, 54, 57, 84] }]; 
+
+
+useEffect(() => {
+  
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=usd')
+      .then(response => response.json())
+      .then(data => setMatic(data["matic-network"].usd));
+      
+
+}, []);
+
+
+
+ 
 
 
   const chartOptions = merge(BaseOptionChart(), {
@@ -59,6 +79,10 @@ export default function Balance() {
     fill: { gradient: { opacityFrom: 0, opacityTo: 0 } },
   });
 
+
+  if (isError) return <div>Error!</div>
+ 
+
   return (
     <RootStyle>
 
@@ -67,14 +91,15 @@ export default function Balance() {
       <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
         <div>
           <Typography sx={{ mb: 2, typography: 'subtitle2' }}>Total balance</Typography>
-          <Typography sx={{ typography: 'h3' }}>{fCurrency(TOTAL)}</Typography>
+          <Typography sx={{ typography: 'h3' }}>{fCurrency(data?.formatted*matic)}</Typography>
         </div>
 
         <Typography variant="subtitle2" component="span" sx={{ ml: 0.5 }}>
         {isLoading ? 'Loading...' :
            <>{(Math.round(data?.formatted * 100) / 100).toFixed(2)} {data?.symbol}</> 
-          }
+          }          
           </Typography>
+          {/* 1 MATIC = ${(Math.round(matic * 100) / 100).toFixed(2)} */}
           
 
       </Stack>

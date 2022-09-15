@@ -153,10 +153,6 @@ const SendToken = () => {
                     <TextField type="number" onChange={(e) => setAmount(e.target.value)} placeholder="0.05"
                    value={amount} name="amount" label="Amount (matic)" fullWidth required autoComplete='off' />
                 </Grid>
-
-
-              
-
                 </Grid>
 
             </form>
