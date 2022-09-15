@@ -1,9 +1,11 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Typography, Button, Card, CardContent } from '@mui/material';
+import { Typography, Card, CardContent } from '@mui/material';
 //
-import { MotivationIllustration } from '../../assets';
+import { WalletIllustration } from '../../assets';
 import SendToken from '../../pages/dashboard/SendToken';
+import RecieveToken from '../../pages/dashboard/RecieveToken';
+import WithdrawToken from '../../pages/dashboard/WithdrawToken';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +35,7 @@ export default function SendRecieve() {
         }}
       >
         <Typography gutterBottom variant="h4">
-          Silvyx Transfer
+          Silvyx Wallet
           <br /> 
         </Typography>
 
@@ -42,15 +44,15 @@ export default function SendRecieve() {
         </Typography>
         
         
-        <span style={{marginRight: '5px'}}><Button variant="contained">Recieve</Button></span>
+        <span style={{marginRight: '5px'}}><RecieveToken/></span>
         <span style={{marginRight: '5px'}}><SendToken/></span>
-        <Button variant="contained">Withdraw</Button>
+        <span><WithdrawToken/></span>
       </CardContent>
 
-      <MotivationIllustration
+      <WalletIllustration
         sx={{
-          p: 3,
-          width: 330,
+          
+          width: 250,
           margin: { xs: 'auto', md: 'inherit' }
         }}
       />

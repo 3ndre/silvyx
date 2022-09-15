@@ -11,6 +11,10 @@ import BaseOptionChart from '../../components/chart/BaseOptionChart';
 
 // ----------------------------------------------------------------------
 
+import { useAccount, useBalance } from 'wagmi'
+
+// ----------------------------------------------------------------------
+
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   padding: theme.spacing(2),
@@ -25,6 +29,17 @@ const TOTAL = "18,765";
 const CHART_DATA = [{ data: [111, 136, 76, 108, 74, 54, 57, 84] }];
 
 export default function Balance() {
+
+  const { address } = useAccount()
+
+  const { data, isError, isLoading } = useBalance({
+    addressOrName: address,
+  })
+
+ 
+  if (isError) return <div>Error!</div>
+
+
   const chartOptions = merge(BaseOptionChart(), {
     chart: { sparkline: { enabled: true } },
     xaxis: { labels: { show: false } },
@@ -56,7 +71,9 @@ export default function Balance() {
         </div>
 
         <Typography variant="subtitle2" component="span" sx={{ ml: 0.5 }}>
-            11.10 matic
+        {isLoading ? 'Loading...' :
+           <>{(Math.round(data?.formatted * 100) / 100).toFixed(2)} {data?.symbol}</> 
+          }
           </Typography>
           
 

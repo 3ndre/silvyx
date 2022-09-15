@@ -37,7 +37,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 
 
-const SendToken = () => {
+const WithdrawToken = () => {
 
   
 
@@ -127,7 +127,7 @@ const SendToken = () => {
       >
         
          <DialogTitle id="alert-dialog-title" >
-          {"Send Token"}
+          {"Withdraw"}
         </DialogTitle>
 
         <DialogContent>
@@ -140,14 +140,9 @@ const SendToken = () => {
       
                 <form id="send-token"  onSubmit={(e) => {
         e.preventDefault()
-        sendTransaction?.()
       }}>
             <Grid container spacing={1} >
 
-
-                <Grid item xs={12}>
-                    <TextField  onChange={(e) => setTo(e.target.value)} placeholder="0xA0Cf…251e" value={to} name="to" label="Address" fullWidth required autoComplete='off'/>
-                </Grid>
 
                 <Grid item xs={12}>
                     <TextField type="number" onChange={(e) => setAmount(e.target.value)} placeholder="0.05"
@@ -173,7 +168,7 @@ const SendToken = () => {
         </Button>
 
           <Button type="submit" form="send-token" variant="contained" autoFocus disabled={isLoading || !sendTransaction || !to || !amount || to === address}>
-          {isLoading ? 'Sending...' : 'Send'}
+          {isLoading ? 'Withdrawing...' : 'Withdraw'}
           </Button>
           </>
          
@@ -186,10 +181,10 @@ const SendToken = () => {
     
 
       <Button variant="contained" onClick={handleClickOpen}>
-              Send
+              Withdraw
             </Button>
     </>
   );
 };
 
-export default SendToken;
+export default WithdrawToken;
