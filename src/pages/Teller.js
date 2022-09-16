@@ -1,13 +1,14 @@
 import { useAccount, useNetwork } from 'wagmi';
 import { Navigate } from 'react-router-dom';
 // @mui
-import { Container, Button, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 // hooks
 import useSettings from '../hooks/useSettings';
 // components 
 import Page from '../components/Page';
 
 import SwitchNetwork from './authentication/SwitchNetwork';
+import BecomeTeller from './dashboard/BecomeTeller';
 
 
 // ----------------------------------------------------------------------
@@ -34,7 +35,7 @@ export default function Teller() {
       {chain.id !== 80001 ? <SwitchNetwork/> : null}
 
 
-        <Button variant="contained">Become a teller</Button>
+        <BecomeTeller/>
       </Container>
     </Page>
   );
