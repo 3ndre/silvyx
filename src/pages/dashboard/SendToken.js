@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDebounce } from 'use-debounce'
 import {
   useAccount,
@@ -15,13 +15,14 @@ import DialogActions from "@mui/material/DialogActions";
 
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import {Grid,Stack} from "@mui/material";
+import {Grid,Stack, Typography} from "@mui/material";
 import TextField from '@mui/material/TextField';
 //-------------------------------------------
 
 //mui alert
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Iconify from "../../components/Iconify";
 
 
 
@@ -44,6 +45,7 @@ const SendToken = () => {
 
     const [open, setOpen] = useState(false);
     const [, setOpen2] = useState(false); //alert
+    const [matic, setMatic] = useState(null);
    
 
 
@@ -95,6 +97,17 @@ const SendToken = () => {
 
 
 
+  
+
+useEffect(() => {
+  
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=usd')
+      .then(response => response.json())
+      .then(data => setMatic(data["matic-network"].usd));
+      
+
+}, []);
+
 
 
   return (
@@ -127,14 +140,18 @@ const SendToken = () => {
       >
         
          <DialogTitle id="alert-dialog-title" >
-          {"Send Token"}
+         <Iconify icon="fa6-solid:money-bill-transfer" size="25px" style={{ marginRight: '3px'}}/> Send Token 
+          
+        <Typography variant="body2" style={{color: 'white'}} component="p" gutterBottom>
+              <span style={{color: 'gray'}}>(1 MATIC = <span style={{color: '#00AB55'}}>${matic}</span>)</span>
+          </Typography> 
+
         </DialogTitle>
 
         <DialogContent>
 
     
-        <Stack sx={{ p: 2 }}>
-
+        <Stack sx={{ p: 1 }}>
 
 
       

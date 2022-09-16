@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import { useDebounce } from 'use-debounce'
-import {
-  useAccount,
-  usePrepareSendTransaction,
-  useSendTransaction,
-  useWaitForTransaction,
-} from 'wagmi'
+
+
 
 //---------------Mui Dialog -----------------
 import Button from "@mui/material/Button";
@@ -24,7 +19,9 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
 
+//smart contract
 
+import ABIS from '../../abis/abis.json';
 
 //---------------------------------------------------------
 
@@ -43,33 +40,52 @@ const WithdrawToken = () => {
 
 
     const [open, setOpen] = useState(false);
-    const [, setOpen2] = useState(false); //alert
-   
+    const [open2, setOpen2] = useState(false); //alert
+    const [withdrawLoad, setWithdrawLoad] = useState(false); //withdraw loading
 
+    const [formParams, updateFormParams] = useState({ amount: ''});
 
+    const [message, setMessage] = useState('');
+    const [alertMessage, setAlertMessage] = useState('');
 
     const ethers = require("ethers");
 
-    const { address } = useAccount()
+    
 
-  const [to, setTo] = React.useState('')
-  const [debouncedTo] = useDebounce(to, 500)
+    async function withdrawToken(e) {
+      e.preventDefault();
+  
+      try {
 
-  const [amount, setAmount] = React.useState('')
-  const [debouncedAmount] = useDebounce(amount, 500)
+          setWithdrawLoad(true);
+       
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const signer = provider.getSigner();
+  
+          let contract = new ethers.Contract(ABIS.address, ABIS.abi, signer);
+  
+          const amounts = ethers.utils.parseUnits(formParams.amount, 'ether');
+         
+  
+          let withdraw = await contract.withdrawAmount({value: amounts});
+          await withdraw.wait();
 
-  const { config } = usePrepareSendTransaction({
-    request: {
-      to: debouncedTo,
-      value: debouncedAmount ? ethers.utils.parseEther(debouncedAmount) : undefined,
-    },
-  })
-  const { data, sendTransaction } = useSendTransaction(config)
-
-  const { isLoading, isSuccess } = useWaitForTransaction({
-    hash: data?.hash,
-  })
-
+          setAlertMessage('');
+  
+          setMessage('Withdraw request listed successfully!');
+          setWithdrawLoad(false);
+          updateFormParams({ amount: ''});
+          setOpen(false);
+          setOpen2(true);
+  
+      } catch (e) {
+        setOpen(false);
+        setWithdrawLoad(false);
+        updateFormParams({ amount: ''});
+        setAlertMessage('Oops, transaction failed!');
+        setOpen2(true);
+      }
+    }
 
 
    
@@ -80,8 +96,7 @@ const WithdrawToken = () => {
   };
 
   const handleClose = () => {
-    setTo('');
-    setAmount('');
+    updateFormParams({ amount: ''});
     setOpen(false);
   };
 
@@ -101,21 +116,6 @@ const WithdrawToken = () => {
     <>
 
 
-{isSuccess && (
-<Stack spacing={2} sx={{ width: '100%' }}>
-    <Snackbar autoHideDuration={6000} onClose={handleClose2}>
-
-    
-       
-        <Alert onClose={handleClose2} severity="success" sx={{ width: '100%', color: 'white' }}>
-        Successfully sent {amount} matic to {to}
-      </Alert>
-     
-
-    
-    </Snackbar>
-  </Stack>
- )}
 
 
       <Dialog
@@ -138,15 +138,12 @@ const WithdrawToken = () => {
 
 
       
-                <form id="send-token"  onSubmit={(e) => {
-        e.preventDefault()
-      }}>
+                <form id="send-token"  onSubmit={withdrawToken}>
             <Grid container spacing={1} >
 
 
                 <Grid item xs={12}>
-                    <TextField type="number" onChange={(e) => setAmount(e.target.value)} placeholder="0.05"
-                   value={amount} name="amount" label="Amount (matic)" fullWidth required autoComplete='off' />
+                    <TextField type="number" placeholder="0.05" name="amount" label="Amount (matic)" fullWidth required autoComplete='off' value={formParams.amount} onChange={e => updateFormParams({...formParams, amount: e.target.value})} />
                 </Grid>
 
 
@@ -167,9 +164,15 @@ const WithdrawToken = () => {
           Cancel
         </Button>
 
-          <Button type="submit" form="send-token" variant="contained" autoFocus disabled={isLoading || !sendTransaction || !to || !amount || to === address}>
-          {isLoading ? 'Withdrawing...' : 'Withdraw'}
+        {withdrawLoad === true ? 
+          <Button type="submit" variant="contained" disabled autoFocus>
+            Withdrawing...
           </Button>
+          :
+          <Button type="submit" form="send-token" variant="contained" autoFocus >
+           Withdraw
+          </Button>
+        }
           </>
          
 
@@ -180,9 +183,29 @@ const WithdrawToken = () => {
 
     
 
-      <Button variant="contained" onClick={handleClickOpen}>
-              Withdraw
-            </Button>
+        <Button variant="contained" onClick={handleClickOpen}>
+          Withdraw
+        </Button>
+
+
+        <Stack spacing={2} sx={{ width: '100%' }} >
+    <Snackbar open={open2} autoHideDuration={6000} onClose={handleClose2} anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "right"
+   }}>
+
+        {alertMessage ?
+        <Alert onClose={handleClose2} severity="error" sx={{ width: '100%' }}>
+          {alertMessage}
+        </Alert>
+        : 
+        <Alert onClose={handleClose2} severity="success" sx={{ width: '100%', color: 'white' }}>
+        {message}
+      </Alert>
+        }
+    
+    </Snackbar>
+  </Stack>
     </>
   );
 };

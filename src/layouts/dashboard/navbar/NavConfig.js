@@ -1,5 +1,6 @@
 // components
 import SvgIconStyle from '../../../components/SvgIconStyle';
+import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
@@ -21,7 +22,7 @@ const sidebarConfig = [
       { title: 'Dashboard', path: '/dashboard', icon: ICONS.dashboard },
       { title: 'Wallet', path: '/wallet', icon: ICONS.dashboard },
       { title: 'Transaction', path: '/transaction', icon: ICONS.analytics },
-      { title: 'Teller', path: '/teller', icon: ICONS.analytics },
+      { title: 'Teller', path: '/teller', icon: <Iconify icon="fluent:person-money-24-filled"/> },
     ],
   },
 

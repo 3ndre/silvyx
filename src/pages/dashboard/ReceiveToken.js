@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Iconify from "../../components/Iconify";
 import {
   useAccount,
 } from 'wagmi'
@@ -66,7 +67,7 @@ const ReceiveToken = () => {
       >
         
          <DialogTitle id="alert-dialog-title" >
-          {"Receive"}
+         <Iconify icon="carbon:qr-code" size="25px" style={{ marginRight: '3px'}}/> Receive 
         </DialogTitle>
 
         <DialogContent>

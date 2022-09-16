@@ -31,6 +31,7 @@ export default function Router() {
       children: [
         { path: 'dashboard', element: <Dashboard /> },
         { path: 'transaction', element: <Transaction /> },
+        { path: 'teller', element: <Teller/>},
       ],
     },
     
@@ -52,5 +53,6 @@ export default function Router() {
 const Dashboard = Loadable(lazy(() => import('../pages/Dashboard')));
 const Home = Loadable(lazy(() => import('../pages/Home')));
 const Transaction = Loadable(lazy(() => import('../pages/Transaction')));
+const Teller = Loadable(lazy(() => import('../pages/Teller')));
 const Connect = Loadable(lazy(() => import('../pages/Connect')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));

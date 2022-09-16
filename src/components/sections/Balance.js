@@ -43,7 +43,7 @@ export default function Balance() {
   const [matic, setMatic] = useState(null)
 
  
-const CHART_DATA = [{ data: [111, 136, 76, 108, 74, 54, 57, 84] }]; 
+const CHART_DATA = [{ data: [111, 136, 76, 108, 74, 54, 57, 9] }]; 
 
 
 useEffect(() => {
