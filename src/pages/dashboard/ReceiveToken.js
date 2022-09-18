@@ -99,7 +99,7 @@ const ReceiveToken = () => {
         </Button>
 
         <Tooltip title={`${address}`} placement="top">
-        <Button variant="contained" disabled={copy === 'Copied!' ? true : false} autoFocus onClick={clipboard}>
+        <Button variant="outlined" disabled={copy === 'Copied!' ? true : false} autoFocus onClick={clipboard}>
            {copy}
           </Button>
         </Tooltip>

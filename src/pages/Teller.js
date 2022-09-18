@@ -9,6 +9,7 @@ import Page from '../components/Page';
 
 import SwitchNetwork from './authentication/SwitchNetwork';
 import BecomeTeller from './dashboard/BecomeTeller';
+import CancelTeller from './dashboard/CancelTeller';
 
 
 // ----------------------------------------------------------------------
@@ -36,6 +37,8 @@ export default function Teller() {
 
 
         <BecomeTeller/>
+        <CancelTeller/>
+        
       </Container>
     </Page>
   );

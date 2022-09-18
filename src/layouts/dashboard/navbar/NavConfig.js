@@ -9,7 +9,6 @@ const getIcon = (name) => <SvgIconStyle src={`/icons/${name}.svg`} sx={{ width: 
 const ICONS = {
   user: getIcon('ic_user'),
   ecommerce: getIcon('ic_ecommerce'),
-  analytics: getIcon('ic_analytics'),
   dashboard: getIcon('ic_dashboard'),
 };
 
@@ -21,7 +20,8 @@ const sidebarConfig = [
     items: [
       { title: 'Dashboard', path: '/dashboard', icon: ICONS.dashboard },
       { title: 'Wallet', path: '/wallet', icon: ICONS.dashboard },
-      { title: 'Transaction', path: '/transaction', icon: ICONS.analytics },
+      { title: 'Transaction', path: '/transaction', icon: <Iconify icon="icon-park-outline:transaction-order"/> },
+      { title: 'Withdraw', path: '/withdraw', icon: <Iconify icon="bx:money-withdraw"/> },
       { title: 'Teller', path: '/teller', icon: <Iconify icon="fluent:person-money-24-filled"/> },
     ],
   },
