@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import axios from 'axios';
 
 
 //---------------Mui Dialog -----------------
@@ -40,7 +40,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 
 
-const BecomeTeller = () => {
+const BecomeTeller = ({id}) => {
 
   
 
@@ -114,6 +114,40 @@ async function stakeToken(e) {
 
       let stake = await contract.stakeToken(parseInt(formParams.days), {value: amounts});
       await stake.wait();
+
+
+
+      //localstorage get access token
+      const local_access_token = localStorage.getItem('access_token');
+      const access_token = JSON.parse(local_access_token)
+
+      //Update teller status 
+      
+      var postData = {
+        teller: true,
+        tellerfund: parseInt(formParams.amount),
+      };
+
+
+      let axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            'Authorization': `Bearer ${access_token.token}`,
+            "x-auth-id": id,
+        }
+      };
+
+
+      axios.put('http://localhost:5000/api/users/me', postData, axiosConfig)
+        .then((res) => {
+          console.log("Teller data updated successfully!");
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log("Update unsuccessful");
+        })
+
 
       setAlertMessage('');
 
@@ -236,7 +270,7 @@ async function stakeToken(e) {
     
 
         <Button variant="contained" onClick={handleClickOpen}>
-          Become a Teller
+          Become teller
         </Button>
 
 

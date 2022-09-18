@@ -54,6 +54,8 @@ export default function Authorize() {
       wallet: address,
       firstname: null,
       lastname: null,
+      teller: false,
+      tellerfund: null,
       location: null,
     };
     

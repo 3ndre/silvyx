@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useAccount } from 'wagmi'
+import axios from 'axios';
+import { useAccount } from 'wagmi';
 
 
 //---------------Mui Dialog -----------------
@@ -34,7 +35,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 
 
-const CancelTeller = ({withdrawId}) => {
+const CancelTeller = ({id}) => {
 
   
 
@@ -96,6 +97,40 @@ const CancelTeller = ({withdrawId}) => {
           
           let cancelTeller = await contract.closePosition(tellerStakedPosition)
           await cancelTeller.wait();
+
+
+           //localstorage get access token
+            const local_access_token = localStorage.getItem('access_token');
+            const access_token = JSON.parse(local_access_token)
+
+            //Update teller status 
+            
+            var postData = {
+              teller: false,
+              tellerfund: null,
+            };
+
+
+            let axiosConfig = {
+              headers: {
+                  'Content-Type': 'application/json;charset=UTF-8',
+                  "Access-Control-Allow-Origin": "*",
+                  'Authorization': `Bearer ${access_token.token}`,
+                  "x-auth-id": id,
+              }
+            };
+
+
+            axios.put('http://localhost:5000/api/users/me', postData, axiosConfig)
+              .then((res) => {
+                console.log("Teller data updated successfully!");
+                window.location.reload();
+              })
+              .catch((err) => {
+                console.log("Update unsuccessful");
+              })
+
+
 
           setAlertMessage('');
   
