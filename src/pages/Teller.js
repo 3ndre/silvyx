@@ -3,6 +3,14 @@ import { useAccount, useNetwork } from 'wagmi';
 import { Navigate } from 'react-router-dom';
 // @mui
 import { Container, Typography, Box } from '@mui/material';
+
+// Tabs
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+
+
 // hooks
 import useSettings from '../hooks/useSettings';
 // components 
@@ -12,6 +20,7 @@ import SwitchNetwork from './authentication/SwitchNetwork';
 import BecomeTeller from './dashboard/BecomeTeller';
 import CancelTeller from './dashboard/CancelTeller';
 import ActiveWithdraws from "./dashboard/ActiveWithdraws";
+import PayChat from "./dashboard/PayChat";
 
 
 // ----------------------------------------------------------------------
@@ -24,6 +33,15 @@ export default function Teller() {
   const { chain } = useNetwork()
 
   const [userData, setUserData] = useState(null);
+
+
+  const [value, setValue] = useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
 
   //localstorage get access token
   const local_access_token = localStorage.getItem('access_token');
@@ -85,20 +103,45 @@ export default function Teller() {
         <br></br>
 
 
-    {userData && userData.teller === false ? 
+        <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange}>
+            <Tab label="All withdrawals" value="1" />
+            <Tab label="Payment chat" value="2" />
+          </TabList>
+        </Box>
+        <TabPanel value="1" style={{marginTop: '20px'}}>
+
+          {userData && userData.teller === false ? 
        
+            <span style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
 
-        <span style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
+            <Typography variant="h5" component="h1" paragraph>
+              You do not have permission to access this page
+            </Typography>
 
-        <Typography variant="h5" component="h1" paragraph>
-          You do not have permission to access this page
-        </Typography>
+            </span>
 
-        </span>
+            : <ActiveWithdraws/>}
 
-        : <ActiveWithdraws/>}
+        </TabPanel>
+        <TabPanel value="2" style={{marginTop: '20px'}}>
 
+        {userData && userData.teller === false ? 
+       
+            <span style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
 
+            <Typography variant="h5" component="h1" paragraph>
+              You do not have permission to access this page
+            </Typography>
+
+            </span>
+            : <PayChat/>}
+        </TabPanel>
+    
+      </TabContext>
+
+    
         
 
         
