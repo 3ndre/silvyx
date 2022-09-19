@@ -11,6 +11,7 @@ import Page from '../components/Page';
 import SwitchNetwork from './authentication/SwitchNetwork';
 import BecomeTeller from './dashboard/BecomeTeller';
 import CancelTeller from './dashboard/CancelTeller';
+import ActiveWithdraws from "./dashboard/ActiveWithdraws";
 
 
 // ----------------------------------------------------------------------
@@ -95,7 +96,10 @@ export default function Teller() {
 
         </span>
 
-        : null }
+        : <ActiveWithdraws/>}
+
+
+        
 
         
 
