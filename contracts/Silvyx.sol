@@ -20,7 +20,7 @@ contract Silvyx {
     uint public currentWithdrawId;
     mapping(uint => WithdrawPosition) public positions; //has all the listed postion to be queried with id
     mapping(address => uint[]) public withdrawIdsByAddress;
-   
+    uint[] public withdrawIds;
 
 //------------------------Staking Position ----------------------------------------------------
 
@@ -77,6 +77,7 @@ contract Silvyx {
         );
 
         withdrawIdsByAddress[msg.sender].push(currentWithdrawId);
+        withdrawIds.push(currentWithdrawId);
         currentWithdrawId +=1;
     }
 
@@ -84,6 +85,12 @@ contract Silvyx {
 //Get withdraw position by id
     function getWithdrawPositionById(uint withdrawId) external view returns(WithdrawPosition memory) {
         return positions[withdrawId];
+    }
+
+
+//Get all withdraw position Id
+    function getWithdrawPositionIds() external view returns(uint[] memory) {
+        return withdrawIds;
     }
 
 //Get withdraw position by wallet
