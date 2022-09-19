@@ -3,6 +3,13 @@ import { useAccount, useNetwork } from 'wagmi';
 import { Navigate } from 'react-router-dom';
 // @mui
 import { Container, Typography, Box } from '@mui/material';
+
+// Tabs
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+
 // hooks
 import useSettings from '../hooks/useSettings';
 // components 
@@ -10,6 +17,7 @@ import Page from '../components/Page';
 
 import SwitchNetwork from './authentication/SwitchNetwork';
 import MyWithdraws from "./dashboard/MyWithdraws";
+import PayChat from "./dashboard/PayChat";
 
 
 // ----------------------------------------------------------------------
@@ -22,6 +30,16 @@ export default function Withdraw() {
   const { chain } = useNetwork()
 
   const [, setUserData] = useState(null);
+
+
+  const [value, setValue] = useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
+
 
   //localstorage get access token
   const local_access_token = localStorage.getItem('access_token');
@@ -83,7 +101,27 @@ export default function Withdraw() {
         <br></br>
 
 
-   <MyWithdraws/>
+        <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange}>
+            <Tab label="Active withdrawals" value="1" />
+            <Tab label="Payment chat" value="2" />
+            <Tab label="Tellers" value="3" />
+          </TabList>
+        </Box>
+        <TabPanel value="1" style={{marginTop: '20px'}}>
+          <MyWithdraws/>
+        </TabPanel>
+        <TabPanel value="2" style={{marginTop: '20px'}}>
+          <PayChat/>
+        </TabPanel>
+        <TabPanel value="3" style={{marginTop: '20px'}}>
+          Accepted request Tellers 
+        </TabPanel>
+      </TabContext>
+
+
+        
 
 
         
