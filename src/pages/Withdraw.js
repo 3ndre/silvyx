@@ -18,6 +18,7 @@ import Page from '../components/Page';
 import SwitchNetwork from './authentication/SwitchNetwork';
 import MyWithdraws from "./dashboard/MyWithdraws";
 import PayChat from "./dashboard/PayChat";
+import AvailableTellers from "./dashboard/AvailableTellers";
 
 
 // ----------------------------------------------------------------------
@@ -29,7 +30,7 @@ export default function Withdraw() {
 
   const { chain } = useNetwork()
 
-  const [, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
 
   const [value, setValue] = useState('1');
@@ -106,7 +107,7 @@ export default function Withdraw() {
           <TabList onChange={handleChange}>
             <Tab label="Active withdrawals" value="1" />
             <Tab label="Payment chat" value="2" />
-            <Tab label="Tellers" value="3" />
+            <Tab label="Available tellers" value="3" />
           </TabList>
         </Box>
         <TabPanel value="1" style={{marginTop: '20px'}}>
@@ -116,7 +117,7 @@ export default function Withdraw() {
           <PayChat/>
         </TabPanel>
         <TabPanel value="3" style={{marginTop: '20px'}}>
-          Accepted request Tellers 
+          <AvailableTellers userData={userData && userData}/>
         </TabPanel>
       </TabContext>
 
