@@ -1,5 +1,4 @@
 import { useAccount } from 'wagmi'
-// import { useState, useEffect } from 'react';
 
 import { Navigate } from 'react-router-dom';
 // @mui
@@ -18,6 +17,9 @@ import {
 import useSettings from '../../hooks/useSettings';
 // components
 import Scrollbar from '../../components/Scrollbar';
+import ChooseTeller from './ChooseTeller';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +28,7 @@ export default function AvailableTellers({userData}) {
   const { themeStretch } = useSettings();
 
   const { isConnected } = useAccount()
-  
+
 
 
 if (!isConnected) {
@@ -96,7 +98,11 @@ if (!isConnected) {
 
 
                           <TableCell align="left">
-                            <Button variant="contained">Choose</Button>
+                            {userData.accepted.length === 0 ? 
+                              <ChooseTeller walletAddress={item.wallet} userData={userData}/>
+                            : 
+                              <Button disabled variant="contained">Choosed</Button>
+                            }
                           </TableCell>
 
                        
@@ -115,8 +121,6 @@ if (!isConnected) {
         </Card>
 
   }
-        
-        
       </Container>
    
   );

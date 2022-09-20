@@ -206,12 +206,19 @@ const AcceptWithdraw = ({walletAddress}) => {
 
         {userData && userData.requests.map((item) => (
           <>
-            {item.wallet === address ? 
+            {item.wallet === address && userData.accepted.length === 0 ? 
             <>
               <Button variant="contained" color="error" onClick={rejectWithdraw}>
                Reject
             </Button>
             </> 
+
+            : userData.accepted.length > 0 ?
+
+            <Button variant="contained" disabled>
+                Processing
+            </Button>
+
             : 
             <>
             <Button variant="contained" onClick={acceptWithdraw}>
@@ -231,6 +238,8 @@ const AcceptWithdraw = ({walletAddress}) => {
         </> : null}
 
 
+
+          
 
 
 
