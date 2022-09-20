@@ -25,6 +25,7 @@ import Scrollbar from '../../components/Scrollbar';
 
 import ABIS from '../../abis/abis.json';
 import CancelWithdraw from '../dashboard/CancelWithdraw';
+import AcceptWithdraw from './AcceptWithdraw';
 
 export default function ActiveWithdraws() {
   const { themeStretch } = useSettings();
@@ -184,7 +185,7 @@ if (!isConnected) {
                             <Button variant="contained" disabled >Closed</Button>
                             : item.walletAddress === address && item.withdrawStatus === true ?  
                             <CancelWithdraw withdrawId={item.withdrawId}/>
-                            : <Button variant="contained" >Accept</Button>
+                            : <AcceptWithdraw walletAddress={item.walletAddress} />
                           }
                           </TableCell>
 

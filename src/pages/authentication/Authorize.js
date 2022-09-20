@@ -56,6 +56,8 @@ export default function Authorize() {
       lastname: null,
       teller: false,
       tellerfund: null,
+      requests: [],
+      accepted: [],
       location: null,
     };
     
