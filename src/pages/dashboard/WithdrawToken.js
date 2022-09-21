@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useAccount } from 'wagmi';
 
 
 //---------------Mui Dialog -----------------
@@ -10,7 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import {Grid,Stack} from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import TextField from '@mui/material/TextField';
 //-------------------------------------------
 
@@ -49,6 +49,39 @@ const WithdrawToken = () => {
     const [alertMessage, setAlertMessage] = useState('');
 
     const ethers = require("ethers");
+
+    const { address } = useAccount()
+
+
+
+    const [userData, setUserData] = useState(null);
+
+
+      //localstorage get access token
+      const local_access_token = localStorage.getItem('access_token');
+      const access_token = JSON.parse(local_access_token)
+
+    
+      //fetching user data
+
+      let header = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${access_token.token}`,
+            "x-auth-wallet": address,
+        }
+    }
+
+
+      useEffect(() => {
+      
+        fetch('http://localhost:5000/api/users/me', header)
+            .then(response => response.json())
+            .then(data => setUserData(data));
+            
+      
+      }, []);
 
     
 
@@ -167,6 +200,10 @@ const WithdrawToken = () => {
         {withdrawLoad === true ? 
           <Button type="submit" variant="contained" disabled autoFocus>
             Withdrawing...
+          </Button>
+          : userData && userData.accepted.length > 0 ?
+          <Button disabled variant="contained" autoFocus >
+            Disabled
           </Button>
           :
           <Button type="submit" form="send-token" variant="contained" autoFocus >

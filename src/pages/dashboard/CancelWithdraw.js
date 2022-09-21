@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from 'axios';
 
 
 //---------------Mui Dialog -----------------
@@ -28,11 +28,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 
 
-const CancelWithdraw = ({withdrawId}) => {
+const CancelWithdraw = ({withdrawId, userId}) => {
 
   
-
-
     const [open2, setOpen2] = useState(false); //alert
     const [withdrawCancel, setWithdrawCancel] = useState(false); //withdraw cancellation loading
 
@@ -60,12 +58,43 @@ const CancelWithdraw = ({withdrawId}) => {
           let cancelWithdraw = await contract.abortWithdraw(withdrawId)
           await cancelWithdraw.wait();
 
+          //localstorage get access token
+          const local_access_token = localStorage.getItem('access_token');
+          const access_token = JSON.parse(local_access_token)
+
+          //On cancellation update accepted and requested status
+          
+          var postData = {
+            accepted: [],
+            requests: []
+          }
+
+
+          let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                'Authorization': `Bearer ${access_token.token}`,
+                "x-auth-id": userId && userId,
+            }
+          };
+
+
+          axios.put('http://localhost:5000/api/users/me', postData, axiosConfig)
+            .then((res) => {
+                console.log("Accept and request wallet updated successfully!");
+            })
+            .catch((err) => {
+                console.log("Wallet acceptance and request unsuccessful");
+            })
+
+
           setAlertMessage('');
   
           setMessage('Withdraw cancelled successfully!');
           setWithdrawCancel(false);
           setOpen2(true);
-  
+          window.location.reload();
       } catch (e) {
         setWithdrawCancel(false);
         setAlertMessage('Oops, cancellation failed!');

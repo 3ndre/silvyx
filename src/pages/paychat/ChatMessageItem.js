@@ -19,11 +19,11 @@ const ContentStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.neutral,
 }));
 
-const InfoStyle = styled(Typography)(({ theme }) => ({
-  display: 'flex',
-  marginBottom: theme.spacing(0.75),
-  color: theme.palette.text.secondary,
-}));
+// const InfoStyle = styled(Typography)(({ theme }) => ({
+//   display: 'flex',
+//   marginBottom: theme.spacing(0.75),
+//   color: theme.palette.text.secondary,
+// }));
 
 //----------------------------------------------------------------------
 
@@ -49,14 +49,7 @@ export default function ChatMessageItem({item, userId}) {
      
 
         <div>
-          <InfoStyle
-            variant="caption"
-            sx={{
-              ...(item.sender === userId ? { justifyContent: 'flex-end' } : null),
-            }}
-          >
-           
-          </InfoStyle>
+         
 
           <ContentStyle
             sx={{

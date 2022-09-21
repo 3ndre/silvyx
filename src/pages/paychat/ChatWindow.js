@@ -31,7 +31,8 @@ const RootStyle = styled('form')(({ theme }) => ({
 
 
 
-export default function ChatWindow({conversationId, userId}) {
+export default function ChatWindow({conversationId, userId, userInfo}) {
+
 
  
   const [formValue, setFormValue] = useState('');
@@ -116,11 +117,10 @@ export default function ChatWindow({conversationId, userId}) {
 
 
 
-
   return (
     <Stack sx={{ flexGrow: 1, minWidth: '1px' }}>
       
-        <ChatHeaderDetail conversationDataById={conversationData && conversationData} userId={userId} />
+        <ChatHeaderDetail conversationDataById={conversationData && conversationData} userId={userId && userId} conversationId={conversationId} status={conversationData && conversationData.status} userInfo={userInfo && userInfo}/>
       
 
       <Divider />
@@ -134,13 +134,23 @@ export default function ChatWindow({conversationId, userId}) {
 
           <RootStyle onSubmit={sendMessage}> 
          
+          {conversationData && conversationData.status === true ? 
             <Input fullWidth disableUnderline placeholder="Type a message"  value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
+            :
+            <Input fullWidth disabled disableUnderline placeholder="Conversation has been closed..."/>
+          }
 
             <Divider orientation="vertical" flexItem />
 
+        {conversationData && conversationData.status === true ? 
           <Button color="primary"  sx={{ mx: 1 }} type="submit" >
             <Iconify icon="ic:round-send" width={22} height={22} />
           </Button>
+          :
+          <Button color="primary"  sx={{ mx: 1 }} disabled >
+            <Iconify icon="ic:round-send" width={22} height={22} />
+          </Button>
+        }
          
         </RootStyle>
 

@@ -26,7 +26,7 @@ import Scrollbar from '../../components/Scrollbar';
 import ABIS from '../../abis/abis.json';
 import CancelWithdraw from '../dashboard/CancelWithdraw';
 
-export default function MyWithdraws() {
+export default function MyWithdraws({userData}) {
   const { themeStretch } = useSettings();
 
   const { isConnected, address } = useAccount()
@@ -77,8 +77,6 @@ export default function MyWithdraws() {
     setTransactionData(filtered);
    
 }
-
-
 
 
 
@@ -174,8 +172,10 @@ if (!isConnected) {
                           <TableCell align="left">
                             {item.walletAddress === address && item.withdrawStatus === false ?
                             <Button variant="contained" disabled >Closed</Button>
+                            : userData && userData.accepted.length > 0 ? 
+                            <Button variant="contained" disabled>Processing</Button>
                             : item.walletAddress === address && item.withdrawStatus === true ?  
-                            <CancelWithdraw withdrawId={item.withdrawId}/>
+                            <CancelWithdraw withdrawId={item.withdrawId} userId={userData && userData._id}/>
                             : <Button variant="contained" >Accept</Button>
                           }
                           </TableCell>

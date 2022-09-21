@@ -65,7 +65,7 @@ export default function ChatList({userData}) {
       <Stack spacing={3} sx={{ p: 3 }}>
        
         
-      {conversationData && conversationData.map((item, index) => (
+      {conversationData && conversationData.reverse().map((item, index) => (
           <ChatListItem item={item} id={userData} index={index} key={index}/>
       ))}
       

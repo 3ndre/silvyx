@@ -77,7 +77,7 @@ export default function PayChat() {
             <br></br>
      
      <Card sx={{ height: '72vh', display: 'flex' }}>
-          <ChatWindow conversationId={id} userId={userData && userData._id} />
+          <ChatWindow conversationId={id} userId={userData && userData._id} userInfo={userData && userData}/>
       </Card>
 
       </Container>

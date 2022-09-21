@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Avatar, Typography} from '@mui/material';
+import { Box, Avatar, Typography, Container, Button } from '@mui/material';
+import PaymentReceived from "../dashboard/PaymentReceived";
 
-// components
-import BadgeStatus from '../../components/BadgeStatus';
-
+// hooks
+import useSettings from '../../hooks/useSettings';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -20,8 +20,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 
-export default function ChatHeaderDetail({conversationDataById, userId}) {
-
+export default function ChatHeaderDetail({conversationDataById, userId, conversationId, status, userInfo}) {
 
   
   //---------------UserData----------------------------
@@ -58,12 +57,11 @@ export default function ChatHeaderDetail({conversationDataById, userId}) {
     }, [userId, conversationDataById]);
 
   
-  
 
   return (
     <RootStyle>
 
-     <OneAvatar user={user && user}/>
+     <OneAvatar user={user && user} userId={userId && userId} conversationId={conversationId} status={status} userInfo={userInfo}/>
 
       
     </RootStyle>
@@ -73,23 +71,42 @@ export default function ChatHeaderDetail({conversationDataById, userId}) {
 // ----------------------------------------------------------------------
 
 
-function OneAvatar({user}) {
+function OneAvatar({user, userId, conversationId, status, userInfo}) {
 
+  const { themeStretch } = useSettings();
  
+  console.log(userInfo)
   
   return (
+    <Container maxWidth={themeStretch ? false : 'xl'}>
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ position: 'relative' }}>
         <Avatar src="" alt="" />
-        <BadgeStatus status="active" sx={{ position: 'absolute', right: 2, bottom: 2 }} />
       </Box>
-      <Box sx={{ ml: 2 }}>
+      <Box sx={{ ml: 2}}>
         <Typography variant="subtitle2" style={{textTransform: 'capitalize'}}>{user && user.wallet.substring(0, 12)}...</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {user && user.teller === true ? <>Teller</> : <>User</>}
         </Typography>
       </Box>
+
+      <Box sx={{ flexGrow: 1 }}>
+      </Box>
+
+      {userInfo && userInfo.teller === true && userInfo.accepted.length === 0 ?
+        null
+      : status && status === true ?
+      <Box sx={{ flexShrink: 0 }}>
+        <PaymentReceived tellerAddress={user && user.wallet} userId={userId && userId} conversationId={conversationId}/>
+      </Box>
+      :
+       <Box sx={{ flexShrink: 0 }}>
+        <Button variant="contained" disabled>Closed</Button>
+      </Box>
+      }
+     
     </Box>
+    </Container>
   );
 }

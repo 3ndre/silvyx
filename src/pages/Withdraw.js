@@ -110,7 +110,7 @@ export default function Withdraw() {
           </TabList>
         </Box>
         <TabPanel value="1" style={{marginTop: '20px'}}>
-          <MyWithdraws/>
+          <MyWithdraws userData={userData && userData}/>
         </TabPanel>
         <TabPanel value="2" style={{marginTop: '20px'}}>
           <AvailableTellers userData={userData && userData}/>

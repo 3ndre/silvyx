@@ -96,7 +96,8 @@ export default function ChooseTeller({userData, walletAddress}) {
             
             var postData = {
               senderId: tellerData._id,
-              receiverId: userData._id
+              receiverId: userData._id,
+              status: true
             };
 
 

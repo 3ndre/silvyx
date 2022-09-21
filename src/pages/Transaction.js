@@ -1,5 +1,5 @@
 import { useAccount } from 'wagmi'
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 
 import moment from 'moment';
 import { Navigate } from 'react-router-dom';
@@ -37,6 +37,9 @@ export default function Transaction() {
 
   const [fetched, setFetched] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
+
+
+  const [userData, setUserData] = useState(null);
   
 
   async function getAllTransactionByAddress() {
@@ -80,6 +83,40 @@ export default function Transaction() {
 
 if(!fetched)
     getAllTransactionByAddress();
+
+
+
+
+  //localstorage get access token
+  const local_access_token = localStorage.getItem('access_token');
+  const access_token = JSON.parse(local_access_token)
+
+ 
+  //fetching user data
+
+  let header = {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token.token}`,
+        "x-auth-wallet": address,
+    }
+}
+
+
+  useEffect(() => {
+  
+    fetch('http://localhost:5000/api/users/me', header)
+        .then(response => response.json())
+        .then(data => setUserData(data));
+        
+  
+  }, []);
+
+
+  
+
+
 
 
 if (!isConnected) {
@@ -171,8 +208,10 @@ if (!isConnected) {
                           <TableCell align="left">
                             {item.withdrawStatus === false ?
                             <Button variant="contained" disabled >Closed</Button>
-                            : 
-                            <CancelWithdraw withdrawId={item.withdrawId}/>
+                            : userData && userData.accepted.length > 0 ? 
+                            <Button variant="contained" disabled>Processing</Button>
+                            :
+                            <CancelWithdraw withdrawId={item.withdrawId} userData={userData && userData._id}/>
                           }
                           </TableCell>
 
