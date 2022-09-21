@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 // @mui
 import { Box, Stack,  Input, Divider, Button} from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -31,16 +31,96 @@ const RootStyle = styled('form')(({ theme }) => ({
 
 
 
-export default function ChatWindow() {
+export default function ChatWindow({conversationId, userId}) {
+
+ 
+  const [formValue, setFormValue] = useState('');
+  const [conversationData, setConversationData] = useState(null);
+
+  const sendMessage = async (e) => {
+        
+        e.preventDefault();
+
+        try {
+
+
+          //localstorage get access token
+          const local_access_token = localStorage.getItem('access_token');
+          const access_token = JSON.parse(local_access_token)
+
+          //Update teller status 
+          
+          var postData = {
+            conversationId: conversationId,
+            sender: userId,
+            text: formValue
+          };
+
+
+          let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                'Authorization': `Bearer ${access_token.token}`,
+            }
+          };
+
+
+          axios.post('http://localhost:5000/api/messages', postData, axiosConfig)
+            .then((res) => {
+              console.log("Message sent successfully!");
+              window.location.reload();
+            })
+            .catch((err) => {
+              console.log("Message error");
+            })
+
+
+
+            setFormValue('');
+
+        } catch (e) {
+
+          console.log("Message Error")
+          setFormValue('');
+        }
+  
+  }
+
 
   
+  //localstorage get access token
+  const local_access_token = localStorage.getItem('access_token');
+  const access_token = JSON.parse(local_access_token)
+
+  
+    //fetching user data
+
+    let header = {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token.token}`,
+      }
+  }
+
+
+
+  useEffect(() => {
+          
+    fetch(`http://localhost:5000/api/conversations/id/${conversationId}`, header)
+      .then(response => response.json())
+      .then(data => setConversationData(data));
+  
+  }, [conversationId]);
+
 
 
 
   return (
     <Stack sx={{ flexGrow: 1, minWidth: '1px' }}>
       
-        <ChatHeaderDetail />
+        <ChatHeaderDetail conversationDataById={conversationData && conversationData} userId={userId} />
       
 
       <Divider />
@@ -48,13 +128,13 @@ export default function ChatWindow() {
       <Box sx={{ flexGrow: 1, display: 'flex', overflow: 'hidden' }}>
         <Stack sx={{ flexGrow: 1 }}>
 
-          <ChatMessageList />
+          <ChatMessageList conversationId={conversationId} userId={userId} />
 
           <Divider />
 
-          <RootStyle> 
+          <RootStyle onSubmit={sendMessage}> 
          
-            <Input fullWidth disableUnderline placeholder="Type a message"/>
+            <Input fullWidth disableUnderline placeholder="Type a message"  value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
 
             <Divider orientation="vertical" flexItem />
 

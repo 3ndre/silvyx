@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useAccount } from 'wagmi';
 // @mui
 import { Container, Card, Button, Box } from '@mui/material';
 
@@ -15,6 +16,44 @@ import Iconify from '../../components/Iconify';
 export default function PayChat() {
 
   const { themeStretch } = useSettings();
+
+  const { id } = useParams();
+
+  const { address } = useAccount()
+
+  //---------------UserData----------------------------
+
+  const [userData, setUserData] = useState(null);
+ 
+
+  //localstorage get access token
+  const local_access_token = localStorage.getItem('access_token');
+  const access_token = JSON.parse(local_access_token)
+
+  
+    //fetching user data
+
+    let header = {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token.token}`,
+          "x-auth-wallet": address,
+      }
+  }
+
+
+    useEffect(() => {
+    
+          
+      fetch('http://localhost:5000/api/users/me', header)
+          .then(response => response.json())
+          .then(data => setUserData(data));
+          
+    
+    }, []);
+
+   
 
 
  
@@ -38,7 +77,7 @@ export default function PayChat() {
             <br></br>
      
      <Card sx={{ height: '72vh', display: 'flex' }}>
-          <ChatWindow />
+          <ChatWindow conversationId={id} userId={userData && userData._id} />
       </Card>
 
       </Container>

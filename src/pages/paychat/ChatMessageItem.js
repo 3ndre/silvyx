@@ -1,5 +1,4 @@
 
-import { useAccount } from 'wagmi';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Avatar, Box, Typography } from '@mui/material';
@@ -28,25 +27,24 @@ const InfoStyle = styled(Typography)(({ theme }) => ({
 
 //----------------------------------------------------------------------
 
-export default function ChatMessageItem() {
+export default function ChatMessageItem({item, userId}) {
 
 
-  const { address } = useAccount();
 
-  
+
   return (
     <RootStyle>
       <Box
         sx={{
           display: 'flex',
           
-          ...(address === address ?  {
+          ...(item.sender === userId ?  {
             ml: 'auto',
           } : null),
         }}
       >
       
-      {address !== 'moi' ? 
+      {item.sender !== userId ? 
           <Avatar alt="" src="" sx={{ width: 32, height: 32, mr: 2 }} /> : null}
      
 
@@ -54,19 +52,19 @@ export default function ChatMessageItem() {
           <InfoStyle
             variant="caption"
             sx={{
-              ...(address === address ? { justifyContent: 'flex-end' } : null),
+              ...(item.sender === userId ? { justifyContent: 'flex-end' } : null),
             }}
           >
-           {'wallet'}
+           
           </InfoStyle>
 
           <ContentStyle
             sx={{
-              ...(address === address ? { color: 'grey.800', bgcolor: 'primary.lighter' } : null),
+              ...(item.sender === userId ? { color: 'grey.800', bgcolor: 'primary.lighter' } : null),
             }}
           >
            
-              <Typography variant="body2">hello</Typography>
+              <Typography variant="body2">{item.text}</Typography>
             
           </ContentStyle>
         </div>
