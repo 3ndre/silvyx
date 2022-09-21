@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import { useAccount } from 'wagmi';
 // @mui
 import { Container, Card, Button, Box } from '@mui/material';
@@ -19,7 +19,7 @@ export default function PayChat() {
 
   const { id } = useParams();
 
-  const { address } = useAccount()
+  const { isConnected, address } = useAccount()
 
   //---------------UserData----------------------------
 
@@ -37,7 +37,7 @@ export default function PayChat() {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${access_token.token}`,
+          'Authorization': `Bearer ${access_token && access_token.token}`,
           "x-auth-wallet": address,
       }
   }
@@ -54,7 +54,11 @@ export default function PayChat() {
     }, []);
 
    
+//------------------------------------------------
 
+if (!isConnected) {
+  return <Navigate to="/connect" />;
+}
 
  
   return (

@@ -68,7 +68,7 @@ const WithdrawToken = () => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${access_token.token}`,
+            'Authorization': `Bearer ${access_token && access_token.token}`,
             "x-auth-wallet": address,
         }
     }

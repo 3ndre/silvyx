@@ -17,7 +17,6 @@ import Page from '../components/Page';
 
 import SwitchNetwork from './authentication/SwitchNetwork';
 import MyWithdraws from "./dashboard/MyWithdraws";
-import PayChat from "./dashboard/PayChat";
 import AvailableTellers from "./dashboard/AvailableTellers";
 
 
@@ -53,7 +52,7 @@ export default function Withdraw() {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${access_token.token}`,
+        'Authorization': `Bearer ${access_token && access_token.token}`,
         "x-auth-wallet": address,
     }
 }
