@@ -23,6 +23,7 @@ const sidebarConfig = [
       { title: 'Transaction', path: '/transaction', icon: <Iconify icon="icon-park-outline:transaction-order"/> },
       { title: 'Withdraw', path: '/withdraw', icon: <Iconify icon="bx:money-withdraw"/> },
       { title: 'Teller', path: '/teller', icon: <Iconify icon="fluent:person-money-24-filled"/> },
+      { title: 'Chat', path: '/chat', icon: <Iconify icon="akar-icons:chat-dots"/> },
     ],
   },
 

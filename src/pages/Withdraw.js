@@ -106,17 +106,13 @@ export default function Withdraw() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange}>
             <Tab label="Active withdrawals" value="1" />
-            <Tab label="Payment chat" value="2" />
-            <Tab label="Available tellers" value="3" />
+            <Tab label="Available tellers" value="2" />
           </TabList>
         </Box>
         <TabPanel value="1" style={{marginTop: '20px'}}>
           <MyWithdraws/>
         </TabPanel>
         <TabPanel value="2" style={{marginTop: '20px'}}>
-          <PayChat/>
-        </TabPanel>
-        <TabPanel value="3" style={{marginTop: '20px'}}>
           <AvailableTellers userData={userData && userData}/>
         </TabPanel>
       </TabContext>

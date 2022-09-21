@@ -107,7 +107,6 @@ export default function Teller() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange}>
             <Tab label="All withdrawals" value="1" />
-            <Tab label="Payment chat" value="2" />
           </TabList>
         </Box>
         <TabPanel value="1" style={{marginTop: '20px'}}>
@@ -125,19 +124,7 @@ export default function Teller() {
             : <ActiveWithdraws/>}
 
         </TabPanel>
-        <TabPanel value="2" style={{marginTop: '20px'}}>
-
-        {userData && userData.teller === false ? 
-       
-            <span style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
-
-            <Typography variant="h5" component="h1" paragraph>
-              You do not have permission to access this page
-            </Typography>
-
-            </span>
-            : <PayChat/>}
-        </TabPanel>
+        
     
       </TabContext>
 

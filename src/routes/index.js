@@ -33,6 +33,8 @@ export default function Router() {
         { path: 'transaction', element: <Transaction /> },
         { path: 'withdraw', element: <Withdraw/>},
         { path: 'teller', element: <Teller/>},
+        { path: 'chat', element: <Chat/>},
+        { path: 'chat/:id', element: <PayChat/>},
       ],
     },
     
@@ -56,5 +58,7 @@ const Home = Loadable(lazy(() => import('../pages/Home')));
 const Transaction = Loadable(lazy(() => import('../pages/Transaction')));
 const Withdraw = Loadable(lazy(() => import('../pages/Withdraw')));
 const Teller = Loadable(lazy(() => import('../pages/Teller')));
+const Chat = Loadable(lazy(() => import('../pages/Chat')));
+const PayChat = Loadable(lazy(() => import('../pages/dashboard/PayChat')));
 const Connect = Loadable(lazy(() => import('../pages/Connect')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
