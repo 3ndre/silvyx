@@ -18,7 +18,7 @@ import {
 import useSettings from '../../hooks/useSettings';
 // components
 import Scrollbar from '../../components/Scrollbar';
-
+import SkeletonItem from "../../components/SkeletonItem";
 // ----------------------------------------------------------------------
 
 //smart contract
@@ -110,7 +110,7 @@ if (!isConnected) {
        
 
 
-        {transactionData === null ? <>Loading...</> :
+        {transactionData === null ? <SkeletonItem/> :
 <Card>
          
 

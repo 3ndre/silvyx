@@ -15,7 +15,7 @@ export default function Logo({ disabledLink = false, sx }) {
 
   const logo = (
     <Box sx={{ width: 40, height: 40, ...sx }}>
-      <h2 style={{color: 'white', textDecoration: 'none'}}>Silvyx</h2>
+      <img src="/favicon/logo.png" alt="logo" />
     </Box>
   );
 

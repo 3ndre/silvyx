@@ -6,6 +6,7 @@ import { Box, Stack, Card, Avatar, CardHeader, Typography } from '@mui/material'
 
 // components
 import Iconify from '../../components/Iconify';
+import SkeletonItem from "../../components/SkeletonItem";
 
 
 // ----------------------------------------------------------------------
@@ -64,10 +65,13 @@ export default function ChatList({userData}) {
       <CardHeader title="All conversation" />
       <Stack spacing={3} sx={{ p: 3 }}>
        
-        
+      {conversationData === null ? <SkeletonItem/> :
+      <>
       {conversationData && conversationData.reverse().map((item, index) => (
           <ChatListItem item={item} id={userData} index={index} key={index}/>
       ))}
+      </>
+      }
       
       </Stack>
     </Card>

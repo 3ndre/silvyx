@@ -18,14 +18,7 @@ const MENU_OPTIONS = [
     label: 'Home',
     linkTo: '/',
   },
-  {
-    label: 'Profile',
-    linkTo: '/',
-  },
-  {
-    label: 'Settings',
-    linkTo: '/',
-  },
+
 ];
 
 // ----------------------------------------------------------------------
@@ -88,7 +81,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            Test Name
+            Account
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {address}

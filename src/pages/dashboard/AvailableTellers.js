@@ -19,7 +19,7 @@ import useSettings from '../../hooks/useSettings';
 import Scrollbar from '../../components/Scrollbar';
 import ChooseTeller from './ChooseTeller';
 
-
+import SkeletonItem from "../../components/SkeletonItem";
 
 // ----------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ if (!isConnected) {
 
 
 
-        {userData === null ? <>Loading...</> :
+        {userData === null ? <SkeletonItem/> :
     
     
     <Card>

@@ -108,6 +108,8 @@ async function stakeToken(e) {
       setOpen(false);
       setOpen2(true);
 
+      window.location.reload();
+
   } catch (e) {
     setOpen(false);
     setStakeLoad(false);

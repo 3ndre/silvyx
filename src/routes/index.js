@@ -44,7 +44,7 @@ export default function Router() {
       element: <LogoOnlyLayout />,
       children: [
         { path: 'connect', element: <Connect/> }, 
-        { path: '404', element: <NotFound /> },
+        { path: '404', element: <Home /> },
         { path: '*', element: <Navigate to="/404" replace /> },
       ],
     },
@@ -63,4 +63,4 @@ const Teller = Loadable(lazy(() => import('../pages/Teller')));
 const Chat = Loadable(lazy(() => import('../pages/Chat')));
 const PayChat = Loadable(lazy(() => import('../pages/dashboard/PayChat')));
 const Connect = Loadable(lazy(() => import('../pages/Connect')));
-const NotFound = Loadable(lazy(() => import('../pages/Page404')));
+

@@ -1,9 +1,45 @@
-import React from 'react'
+// @mui
+import { styled } from '@mui/material/styles';
 
-const Home = () => {
+
+// components
+import Page from '../components/Page';
+
+// sections
+import HomeBanner from "./home/HomeBanner";
+import HomeBanner2 from "./home/HomeBanner2";
+
+
+
+
+// ----------------------------------------------------------------------
+
+const RootStyle = styled('div')(() => ({
+  height: '100%',
+}));
+
+const ContentStyle = styled('div')(({ theme }) => ({
+  overflow: 'hidden',
+  position: 'relative',
+  backgroundColor: theme.palette.background.default,
+}));
+
+// ----------------------------------------------------------------------
+
+export default function HomePage() {
   return (
-    <code>Home</code>
-  )
-}
+    <Page title="Silvyx | Bankless Payment Network">
+      <RootStyle>
+      
+        <ContentStyle>
 
-export default Home
+          <HomeBanner />
+
+          <HomeBanner2 />
+
+          
+        </ContentStyle>
+      </RootStyle>
+    </Page>
+  );
+}

@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import moment from 'moment';
 // @mui
 import {
+    Grid,
     Box,
     Card,
     Table,
@@ -26,6 +27,8 @@ import SwitchNetwork from './authentication/SwitchNetwork';
 import StakeToken from "./dashboard/StakeToken";
 import ABIS from '../abis/abis.json';
 import CancelStake from "./dashboard/CancelStake";
+import InterestSummary from "../components/sections/InterestSummary";
+import SkeletonItem from "../components/SkeletonItem";
 // ----------------------------------------------------------------------
 
 export default function Teller() {
@@ -42,6 +45,7 @@ export default function Teller() {
 
   const [fetched, setFetched] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
+  const [lockperiods, setLockPeriods] = useState(null)
 
 
   
@@ -58,6 +62,23 @@ export default function Teller() {
 
     //get all transaction position of the user
     let stakingPosition = await contract.getPositionIdsForAddress(address)
+
+    let lockPeriods = await contract.getLockPeriods()
+
+    let allLockPeriods = await Promise.all(lockPeriods.map(async i => {
+
+      let interestRate = await contract.getInterestRate(i)
+
+      let daysInterest = {
+        days: parseInt(i),
+        percent: interestRate.toString()
+      }
+
+      
+      return daysInterest
+    }))
+
+    setLockPeriods(allLockPeriods)
 
     //get all transaction done by the user
     let allTransactionByAddress = await Promise.all(stakingPosition.map(async i => {
@@ -117,10 +138,31 @@ if(!fetched)
         </Box>
 
         <br></br>
+
+        <Grid container spacing={3} > 
+
+        {lockperiods && lockperiods.map((item) => (
+
+      
+        <Grid item xs={12} md={4} key={item.days}>
+            <InterestSummary
+              title="Stake for"
+              percent={item.percent.replace('00', '')}
+              total={item.days}
+            />
+          </Grid>
+
+        ))}
+
+
+        </Grid>
+
+        <br></br>
+
     
 
 
-        {transactionData === null ? <>Loading...</> :
+        {transactionData === null ? <SkeletonItem/> :
 <Card>
          
 
