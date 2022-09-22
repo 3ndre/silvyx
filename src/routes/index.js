@@ -30,6 +30,7 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { path: 'dashboard', element: <Dashboard /> },
+        { path: 'staking', element: <Staking /> },
         { path: 'transaction', element: <Transaction /> },
         { path: 'withdraw', element: <Withdraw/>},
         { path: 'teller', element: <Teller/>},
@@ -55,6 +56,7 @@ export default function Router() {
 // Dashboard
 const Dashboard = Loadable(lazy(() => import('../pages/Dashboard')));
 const Home = Loadable(lazy(() => import('../pages/Home')));
+const Staking = Loadable(lazy(() => import('../pages/Staking')));
 const Transaction = Loadable(lazy(() => import('../pages/Transaction')));
 const Withdraw = Loadable(lazy(() => import('../pages/Withdraw')));
 const Teller = Loadable(lazy(() => import('../pages/Teller')));

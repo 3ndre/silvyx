@@ -19,7 +19,7 @@ const sidebarConfig = [
     subheader: '',
     items: [
       { title: 'Dashboard', path: '/dashboard', icon: ICONS.dashboard },
-      { title: 'Wallet', path: '/wallet', icon: ICONS.dashboard },
+      { title: 'Staking', path: '/staking', icon: <Iconify icon="ri:safe-2-line"/> },
       { title: 'Transaction', path: '/transaction', icon: <Iconify icon="icon-park-outline:transaction-order"/> },
       { title: 'Withdraw', path: '/withdraw', icon: <Iconify icon="bx:money-withdraw"/> },
       { title: 'Teller', path: '/teller', icon: <Iconify icon="fluent:person-money-24-filled"/> },
