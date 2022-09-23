@@ -10,6 +10,7 @@ import Page from '../components/Page';
 import SwitchNetwork from './authentication/SwitchNetwork';
 import SendReceive from '../components/sections/SendReceive';
 import Balance from '../components/sections/Balance';
+import RoutesCard from '../components/sections/RoutesCard';
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +40,23 @@ export default function Dashboard() {
 
           <Grid item xs={12} md={4}>
             <Balance />
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <RoutesCard title="Staking" total={714000} icon={'ri:safe-2-line'} to="/staking" color="error"/>
+          </Grid>
+
+
+          <Grid item xs={12} sm={6} md={3}>
+            <RoutesCard title="Transaction" total={714000} icon={'icon-park-outline:transaction-order'} to="/transaction" color="warning"/>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <RoutesCard title="Withdraw" total={714000} icon={'bx:money-withdraw'} to="/withdraw" color="primary"/>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <RoutesCard title="Chat" total={714000} icon={'akar-icons:chat-dots'} to="/chat" color="info"/>
           </Grid>
           
       </Grid>
