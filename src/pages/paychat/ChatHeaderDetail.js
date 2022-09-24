@@ -49,7 +49,7 @@ export default function ChatHeaderDetail({conversationDataById, userId, conversa
 
     useEffect(() => {
     
-      fetch(`http://localhost:5000/api/users/${conversationDataById && conversationDataById.members[0] === userId ? conversationDataById && conversationDataById.members[1] : conversationDataById && conversationDataById.members[0]}`, header)
+      fetch(`https://silvyxbackend.glitch.me/api/users/${conversationDataById && conversationDataById.members[0] === userId ? conversationDataById && conversationDataById.members[1] : conversationDataById && conversationDataById.members[0]}`, header)
           .then(response => response.json())
           .then(data => setUser(data));
           

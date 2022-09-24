@@ -67,7 +67,7 @@ export default function ChatWindow({conversationId, userId, userInfo}) {
           };
 
 
-          axios.post('http://localhost:5000/api/messages', postData, axiosConfig)
+          axios.post('https://silvyxbackend.glitch.me/api/messages', postData, axiosConfig)
             .then((res) => {
               console.log("Message sent successfully!");
               window.location.reload();
@@ -109,7 +109,7 @@ export default function ChatWindow({conversationId, userId, userInfo}) {
 
   useEffect(() => {
           
-    fetch(`http://localhost:5000/api/conversations/id/${conversationId}`, header)
+    fetch(`https://silvyxbackend.glitch.me/api/conversations/id/${conversationId}`, header)
       .then(response => response.json())
       .then(data => setConversationData(data));
   

@@ -28,7 +28,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 
-export default function Balance() {
+export default function Balance({transactionData}) {
 
 
   
@@ -43,7 +43,7 @@ export default function Balance() {
   const [matic, setMatic] = useState(null)
 
  
-const CHART_DATA = [{ data: [111, 136, 76, 108, 74, 54, 57, 9] }]; 
+const CHART_DATA = [{ data: transactionData && transactionData }]; 
 
 
 useEffect(() => {
@@ -57,7 +57,6 @@ useEffect(() => {
 
 
 
- 
 
 
   const chartOptions = merge(BaseOptionChart(), {

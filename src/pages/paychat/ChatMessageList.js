@@ -33,7 +33,7 @@ export default function ChatMessageList({conversationId, userId}) {
     useEffect(() => {
     
           
-      fetch(`http://localhost:5000/api/messages/${conversationId}`, header)
+      fetch(`https://silvyxbackend.glitch.me/api/messages/${conversationId}`, header)
           .then(response => response.json())
           .then(data => setConversationData(data));
     

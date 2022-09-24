@@ -76,7 +76,7 @@ const WithdrawToken = () => {
 
       useEffect(() => {
       
-        fetch('http://localhost:5000/api/users/me', header)
+        fetch('https://silvyxbackend.glitch.me/api/users/me', header)
             .then(response => response.json())
             .then(data => setUserData(data));
             

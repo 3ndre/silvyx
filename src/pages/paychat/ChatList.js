@@ -48,7 +48,7 @@ export default function ChatList({userData}) {
  
      useEffect(() => {
      
-       fetch(`http://localhost:5000/api/conversations/${userData}`, header)
+       fetch(`https://silvyxbackend.glitch.me/api/conversations/${userData}`, header)
            .then(response => response.json())
            .then(data => setConversationData(data));
            
@@ -107,7 +107,7 @@ function ChatListItem({item, index, id}) {
  
      useEffect(() => {
      
-       fetch(`http://localhost:5000/api/users/${item.members[0] === id ?  item.members[1] : item.members[0]}`, header)
+       fetch(`https://silvyxbackend.glitch.me/api/users/${item.members[0] === id ?  item.members[1] : item.members[0]}`, header)
            .then(response => response.json())
            .then(data => setUser(data));
            

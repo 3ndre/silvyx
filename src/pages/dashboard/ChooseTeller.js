@@ -71,7 +71,7 @@ export default function ChooseTeller({userData, walletAddress}) {
 
         useEffect(() => {
         
-          fetch('http://localhost:5000/api/users/me', header)
+          fetch('https://silvyxbackend.glitch.me/api/users/me', header)
               .then(response => response.json())
               .then(data => setTellerData(data));
               
@@ -110,7 +110,7 @@ export default function ChooseTeller({userData, walletAddress}) {
             };
 
 
-            axios.post('http://localhost:5000/api/conversations', postData, axiosConfig)
+            axios.post('https://silvyxbackend.glitch.me/api/conversations', postData, axiosConfig)
               .then((res) => {
                 console.log("Conversation started successfully!");
                 window.location.reload();
@@ -142,7 +142,7 @@ export default function ChooseTeller({userData, walletAddress}) {
               };
   
   
-              axios.put('http://localhost:5000/api/users/me', postData2, axiosConfig2)
+              axios.put('https://silvyxbackend.glitch.me/api/users/me', postData2, axiosConfig2)
                 .then((res) => {
                   console.log("Accept wallet added successfully!");
                   window.location.reload();

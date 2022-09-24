@@ -80,7 +80,7 @@ const CancelWithdraw = ({withdrawId, userId}) => {
           };
 
 
-          axios.put('http://localhost:5000/api/users/me', postData, axiosConfig)
+          axios.put('https://silvyxbackend.glitch.me/api/users/me', postData, axiosConfig)
             .then((res) => {
                 console.log("Accept and request wallet updated successfully!");
             })

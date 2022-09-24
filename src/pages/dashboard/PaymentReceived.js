@@ -153,7 +153,7 @@ const PaymentReceived = ({tellerAddress, userId, conversationId}) => {
           };
 
 
-          axios.put('http://localhost:5000/api/users/me', postData, axiosConfig)
+          axios.put('https://silvyxbackend.glitch.me/api/users/me', postData, axiosConfig)
             .then((res) => {
                 console.log("Accept and request wallet updated successfully!");
             })
@@ -180,7 +180,7 @@ const PaymentReceived = ({tellerAddress, userId, conversationId}) => {
           };
 
 
-          axios.put('http://localhost:5000/api/conversations', postData2, axiosConfig2)
+          axios.put('https://silvyxbackend.glitch.me/api/conversations', postData2, axiosConfig2)
             .then((res) => {
                 console.log("Accept and request wallet updated successfully!");
             })

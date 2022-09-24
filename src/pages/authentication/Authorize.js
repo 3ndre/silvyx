@@ -27,7 +27,7 @@ export default function Authorize() {
             'Content-Type': 'application/json',
         }
     }
-    let res = await fetch(`http://localhost:5000/api/auth/nonce?address=${address}`, header) //getting nonce from the backend
+    let res = await fetch(`https://silvyxbackend.glitch.me/api/auth/nonce?address=${address}`, header) //getting nonce from the backend
     let resBody = await res.json();
 
     const ethers = require("ethers");
@@ -44,7 +44,7 @@ export default function Authorize() {
         }
     }
 
-    res = await fetch(`http://localhost:5000/api/auth/verify?signature=${signature}`, opts)
+    res = await fetch(`https://silvyxbackend.glitch.me/api/auth/verify?signature=${signature}`, opts)
     resBody = await res.json();
 
 
@@ -69,7 +69,7 @@ export default function Authorize() {
     };
     
     if(address !== null) {
-    axios.post('http://localhost:5000/api/users', postData, axiosConfig)
+    axios.post('https://silvyxbackend.glitch.me/api/users', postData, axiosConfig)
     .then((res) => {
        //local storage remove 24hrs
         var now = new Date().getTime();

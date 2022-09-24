@@ -75,7 +75,7 @@ const AcceptWithdraw = ({walletAddress}) => {
 
         useEffect(() => {
         
-          fetch('http://localhost:5000/api/users/me', header)
+          fetch('https://silvyxbackend.glitch.me/api/users/me', header)
               .then(response => response.json())
               .then(data => setUserData(data));
               
@@ -117,7 +117,7 @@ const AcceptWithdraw = ({walletAddress}) => {
             };
 
 
-            axios.put('http://localhost:5000/api/users/me', postData, axiosConfig)
+            axios.put('https://silvyxbackend.glitch.me/api/users/me', postData, axiosConfig)
               .then((res) => {
                 console.log("Accept withdraw accepted successfully!");
                 window.location.reload();
@@ -173,7 +173,7 @@ const AcceptWithdraw = ({walletAddress}) => {
             };
 
 
-            axios.put('http://localhost:5000/api/users/me', postData, axiosConfig)
+            axios.put('https://silvyxbackend.glitch.me/api/users/me', postData, axiosConfig)
               .then((res) => {
                 console.log("Accept withdraw accepted successfully!");
                 window.location.reload();

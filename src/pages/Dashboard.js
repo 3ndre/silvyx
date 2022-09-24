@@ -1,4 +1,6 @@
 import { useAccount, useNetwork } from 'wagmi';
+
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 // @mui
 import { Container, Grid } from '@mui/material';
@@ -11,15 +13,61 @@ import SwitchNetwork from './authentication/SwitchNetwork';
 import SendReceive from '../components/sections/SendReceive';
 import Balance from '../components/sections/Balance';
 import RoutesCard from '../components/sections/RoutesCard';
-
+import ABIS from '../abis/abis.json';
 // ----------------------------------------------------------------------
 
 export default function Dashboard() {
   const { themeStretch } = useSettings();
 
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
 
   const { chain } = useNetwork()
+
+
+
+    const [fetched, setFetched] = useState(false);
+    const [transactionData, setTransactionData] = useState(null);
+
+
+    async function getAllTransactionByAddress() {
+
+      const ethers = require("ethers");
+      //After adding Hardhat network, this code will get providers and signers
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      //Pull the deployed contract instance
+      let contract = new ethers.Contract(ABIS.address, ABIS.abi, signer)
+
+
+      //get all transaction position of the user
+      let transactionPosition = await contract.getWithdrawPositionIdsForAddress(address)
+
+      //get all transaction done by the user
+      let allTransactionByAddress = await Promise.all(transactionPosition.map(async i => {
+
+        let transaction = await contract.getWithdrawPositionById(i);
+
+        
+        
+        
+
+        return parseInt(transaction.withdrawAmount)/1000000000000000000
+      }))
+
+    
+
+      setFetched(true);
+      setTransactionData(allTransactionByAddress);
+    
+  }
+
+
+
+  if(!fetched)
+      getAllTransactionByAddress();
+
+
+      
 
   if (!isConnected) {
     return <Navigate to="/connect" />;
@@ -39,7 +87,7 @@ export default function Dashboard() {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Balance />
+            <Balance transactionData={transactionData && transactionData}/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
