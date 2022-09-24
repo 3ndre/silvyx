@@ -43,7 +43,7 @@ export default function HomeBanner() {
 
           <m.div variants={varFade().inUp}>
         <Typography variant="h2" sx={{ mb: 4}}> 
-        Bankless <span style={{color: '#00AB55'}}>Payment Network</span>
+        A P2P <span style={{color: '#00AB55'}}>Withdrawal Network</span>
         </Typography>
       </m.div>
 
